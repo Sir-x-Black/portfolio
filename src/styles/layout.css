@@ -1,0 +1,300 @@
+/* Page frame */
+
+/* --max-width is the content width; header, page and footer share the same edges. */
+.page {
+  max-width: calc(var(--max-width) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Main column + margin rail. Below 64rem the margin notes follow their block. */
+
+.annotated {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 1.5rem;
+}
+
+.annotated__main {
+  min-width: 0;
+}
+
+.annotated__margin {
+  display: grid;
+  align-content: start;
+  gap: 1.1rem;
+  max-width: 36rem;
+}
+
+@media (min-width: 64rem) {
+  .annotated {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    column-gap: var(--margin-gap);
+  }
+
+  .annotated__margin {
+    padding-top: 0.4rem;
+  }
+}
+
+/* Margin notes: the reviewer's voice. Serif, quieter than the main text. */
+
+.note {
+  font-family: var(--font-serif);
+  font-size: var(--text-note);
+  line-height: 1.5;
+  color: var(--ink-2);
+  padding-left: 0.95rem;
+  border-left: 2px solid var(--rule);
+  transition: border-color 200ms ease, color 200ms ease;
+}
+
+.note__lead {
+  font-style: italic;
+  color: var(--ink);
+}
+
+.note--public {
+  border-left-color: var(--blue);
+}
+
+.note--claim {
+  border-left-color: var(--ink-2);
+}
+
+/* An annotated phrase. Only styled when a margin note actually points to it. */
+
+.anchor[data-k] {
+  background-image: linear-gradient(var(--highlight), var(--highlight));
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 0% 100%;
+  text-decoration: underline dotted var(--ink-3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.24em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size 420ms var(--ease-out);
+}
+
+.annotated:has([data-k='1']:is(:hover, :focus-within)) .anchor[data-k='1'],
+.annotated:has([data-k='2']:is(:hover, :focus-within)) .anchor[data-k='2'],
+.annotated:has([data-k='3']:is(:hover, :focus-within)) .anchor[data-k='3'] {
+  background-size: 100% 100%;
+}
+
+.annotated:has([data-k='1']:is(:hover, :focus-within)) .note[data-k='1'],
+.annotated:has([data-k='2']:is(:hover, :focus-within)) .note[data-k='2'],
+.annotated:has([data-k='3']:is(:hover, :focus-within)) .note[data-k='3'] {
+  border-left-color: var(--ink);
+  color: var(--ink);
+}
+
+/* Sections */
+
+.section {
+  margin-top: var(--section-gap);
+  scroll-margin-top: 1.5rem;
+}
+
+.section__title {
+  font-size: var(--text-h2);
+  letter-spacing: -0.012em;
+}
+
+.section__intro {
+  max-width: var(--measure);
+  margin-top: 1.1rem;
+}
+
+.subsection__title {
+  font-size: 1.375rem;
+  margin-top: 2.5rem;
+}
+
+/* Header */
+
+.site-header {
+  padding-inline: var(--gutter);
+}
+
+.site-header__inner {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  min-height: 4.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem 2rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.wordmark {
+  font-family: var(--font-serif);
+  font-size: 1.1875rem;
+  font-weight: 560;
+  color: var(--ink);
+  text-decoration: none;
+  padding-block: 0.6rem;
+}
+
+.site-nav {
+  margin-left: auto;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 1.6rem;
+  list-style: none;
+  padding: 0;
+}
+
+.site-nav a,
+.site-header__tools a {
+  display: inline-block;
+  padding-block: 0.7rem;
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-header__tools a:hover,
+.site-header__tools a[aria-current='page'] {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+.site-header__tools {
+  display: flex;
+  gap: 1.4rem;
+}
+
+/* Narrow screens: the section links move to their own row instead of disappearing. */
+@media (max-width: 59.99rem) {
+  .site-header__inner {
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+
+  .site-header__tools {
+    margin-left: auto;
+  }
+
+  .site-nav {
+    order: 3;
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+
+  /* Two by two, so labels of any length (English or Spanish) stay tidy. */
+  .site-nav ul {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0 1.75rem;
+    padding-bottom: 0.35rem;
+  }
+
+  .site-nav a {
+    padding-block: 0.4rem;
+  }
+}
+
+/* Footer */
+
+.site-footer {
+  margin-top: var(--section-gap);
+  padding: 2.25rem var(--gutter) 3rem;
+}
+
+.site-footer__inner {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  display: grid;
+  gap: 0.75rem;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.site-footer__colophon {
+  max-width: var(--measure);
+}
+
+.site-footer__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}
+
+/* Controls */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.05rem;
+  border: 1.5px solid var(--button-ink);
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--button-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.button:hover {
+  background: color-mix(in srgb, var(--button-ink) 8%, transparent);
+}
+
+.button--primary {
+  background: var(--button-ink);
+  color: var(--button-paper);
+}
+
+.button--primary:hover {
+  background: var(--button-ink-hover);
+  border-color: var(--button-ink-hover);
+}
+
+.button.is-done {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 2.75rem;
+  color: var(--ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.icon {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: 0.75rem;
+  z-index: 10;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-control);
+  background: var(--button-ink);
+  color: var(--button-paper);
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}

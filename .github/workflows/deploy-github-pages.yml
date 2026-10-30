@@ -1,0 +1,57 @@
+# Alternative to Cloudflare Pages. Runs only when started by hand
+# (Actions > Deploy to GitHub Pages > Run workflow), and only after Pages is
+# enabled for THIS repository with "GitHub Actions" as the source.
+#
+# A project site is served under /<repository>/, so it never touches the
+# Sir-x-Black.github.io repository or the Project Duck page at the domain root.
+# GitHub Pages ignores public/_headers, so the security headers there don't apply.
+
+name: Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+# Read-only by default: the build job runs `npm ci`, i.e. third-party code, so it
+# gets no write access. Only the deploy job can publish.
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read # configure-pages reads the site's base path
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - id: pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - run: npm ci
+      - run: npm run build
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+          SITE_URL: ${{ steps.pages.outputs.origin }}
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

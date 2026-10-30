@@ -1,0 +1,20 @@
+node_modules/
+dist/
+dist-ssr/
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+
+# Local environment files never belong in the repository
+.env
+.env.*
+
+# Jars downloaded by the compile check
+evidence/**/.cache/
+
+# Wrangler's local cache
+.wrangler/
+
+# Private working notes, kept out of the public repository on purpose
+notes/

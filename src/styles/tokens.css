@@ -1,0 +1,75 @@
+/*
+ * "Proof": a cool proof paper, blue-black ink, and three semantic pen colours.
+ * Red marks errors, green marks fixes, blue marks evidence and links. Nothing is
+ * decorative. Contrast ratios are recorded in docs/art-direction.md.
+ */
+:root {
+  color-scheme: light dark;
+
+  --paper: #eef0f3;
+  --sheet: #ffffff;
+  --ink: #171c26;
+  --ink-2: #4b5466;
+  --ink-3: #626b7d;
+  --rule: #c3c9d2;
+  --rule-soft: #dde1e7;
+  --red: #b8322a;
+  --red-wash: #fbebe8;
+  --green: #1b7149;
+  --green-wash: #e5f2ea;
+  --blue: #2948ae;
+  --highlight: #ffe38a;
+  --code-string: #3b5577;
+  --button-ink: #171c26;
+  --button-ink-hover: #2c3444;
+  --button-paper: #eef0f3;
+  --sheet-shadow: 0 1px 0 rgb(23 28 38 / 0.04), 0 18px 40px -24px rgb(23 28 38 / 0.32);
+
+  --font-serif: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Public Sans Variable', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, 'Liberation Mono', monospace;
+
+  /* Classical scale: 13, 15, 16, 17–18, 22–24, 24–28, 30–40, 40–64 px */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-note: 1rem;
+  --text-body: clamp(1.0625rem, 1.02rem + 0.2vw, 1.125rem);
+  --text-h3: clamp(1.375rem, 1.25rem + 0.5vw, 1.5rem);
+  --text-name: clamp(1.5rem, 1.38rem + 0.5vw, 1.75rem);
+  --text-h2: clamp(1.875rem, 1.5rem + 1.5vw, 2.5rem);
+  --text-thesis: clamp(2.5rem, 1.75rem + 3.2vw, 4rem);
+  --code-size: clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);
+  --code-line-height: 1.7; /* src/lib/handmark.ts sizes the marks from this */
+
+  --gutter: clamp(1rem, 0.4rem + 2.6vw, 2.5rem);
+  --max-width: 78rem;
+  --measure: 40rem;
+  --margin-gap: clamp(2rem, 1rem + 3vw, 4.5rem);
+  --section-gap: clamp(5rem, 3.5rem + 6vw, 9rem);
+  --radius: 4px;
+  --radius-control: 7px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #121519;
+    --sheet: #1a1e24;
+    --ink: #e7e9ed;
+    --ink-2: #aeb5c1;
+    --ink-3: #8d95a3;
+    --rule: #39404b;
+    --rule-soft: #2b313a;
+    --red: #ff8576;
+    --red-wash: #2a1d1e;
+    --green: #62cf99;
+    --green-wash: #172720;
+    --blue: #93abff;
+    --highlight: #4b4018;
+    --code-string: #a9bfdc;
+    --button-ink: #e7e9ed;
+    --button-ink-hover: #ffffff;
+    --button-paper: #121519;
+    --sheet-shadow: 0 1px 0 rgb(0 0 0 / 0.3), 0 18px 40px -24px rgb(0 0 0 / 0.8);
+  }
+}

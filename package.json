@@ -1,0 +1,49 @@
+{
+  "name": "gonzalo-palavesino-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio of Gonzalo Palavesino, software engineer (Java, Spring Boot, Oracle SQL), for AI training, AI evaluation and software engineering work.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:client && npm run build:server && npm run prerender && npm run check:privacy",
+    "build:client": "vite build",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist-ssr",
+    "prerender": "node scripts/prerender.mjs",
+    "check:privacy": "node scripts/check-privacy.mjs dist",
+    "preview": "vite preview --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "images": "node scripts/render-images.mjs",
+    "verify:example": "node evidence/spring-security-review/verify.mjs",
+    "deploy": "npm run build && npm run deploy:upload",
+    "deploy:upload": "npx --yes wrangler@4.156.0 pages deploy dist --project-name gonzalo-palavesino --branch main"
+  },
+  "dependencies": {
+    "@fontsource-variable/newsreader": "5.3.0",
+    "@fontsource-variable/public-sans": "5.3.0",
+    "@fontsource/jetbrains-mono": "5.3.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "eslint": "9.39.5",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "17.13.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1",
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
+  }
+}

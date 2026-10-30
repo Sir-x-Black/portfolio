@@ -1,0 +1,15 @@
+@layer tokens, base, layout, components, utilities;
+
+/* Self-hosted fonts. Only the Latin subsets download for this content (unicode-range). */
+@import '@fontsource-variable/public-sans/wght.css';
+@import '@fontsource-variable/newsreader/wght.css';
+@import '@fontsource-variable/newsreader/wght-italic.css';
+@import '@fontsource/jetbrains-mono/latin-400.css';
+
+@import './tokens.css' layer(tokens);
+@import './base.css' layer(base);
+@import './layout.css' layer(layout);
+@import './review.css' layer(components);
+@import './sections.css' layer(components);
+@import './cv.css' layer(components);
+@import './utilities.css' layer(utilities);
